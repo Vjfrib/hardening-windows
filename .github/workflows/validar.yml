@@ -1,0 +1,74 @@
+# Valida o script numa máquina Windows descartável do GitHub Actions:
+# confere a sintaxe, roda o modo Auditar, aplica o checklist e audita de novo.
+# A máquina é apagada no fim, então aplicar o hardening nela não tem risco.
+name: Validar script no Windows
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validar:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Conferir sintaxe (Windows PowerShell 5.1)
+        shell: powershell
+        run: |
+          $erros = @()
+          Get-ChildItem -Recurse -Include *.ps1, *.psd1 | ForEach-Object {
+            $tokens = $null; $falhas = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$falhas) | Out-Null
+            foreach ($f in $falhas) { $erros += "$($_.Name):$($f.Extent.StartLineNumber): $($f.Message)" }
+          }
+          if ($erros) { $erros; exit 1 }
+          Write-Host 'Sintaxe OK'
+
+      - name: PSScriptAnalyzer (erros)
+        shell: powershell
+        run: |
+          if (-not (Get-Module -ListAvailable PSScriptAnalyzer)) {
+            Install-PackageProvider -Name NuGet -Force -Scope CurrentUser | Out-Null
+            Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
+          }
+          $achados = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error
+          $achados | Format-Table -AutoSize | Out-String -Width 200 | Write-Host
+          if ($achados) { exit 1 }
+
+      - name: Configuração de teste
+        shell: powershell
+        run: |
+          (Get-Content config\hardening.config.psd1 -Encoding UTF8) -replace "NovoNomeAdministrador\s*=\s*''", "NovoNomeAdministrador = 'adm-local-ci'" |
+            Set-Content ci.config.psd1 -Encoding UTF8
+
+      - name: Auditar (antes)
+        shell: powershell
+        run: .\Invoke-Hardening.ps1 -Modo Auditar -Configuracao .\ci.config.psd1
+
+      - name: Aplicar
+        shell: powershell
+        run: .\Invoke-Hardening.ps1 -Modo Aplicar -Forcar -Configuracao .\ci.config.psd1
+
+      - name: Auditar (depois) e conferir
+        shell: powershell
+        run: |
+          $r = .\Invoke-Hardening.ps1 -Modo Auditar -Configuracao .\ci.config.psd1 -PassThru
+          $ruins = @($r | Where-Object { $_.StatusFinal -in @('FALHA', 'ERRO') })
+          if ($ruins.Count) {
+            $ruins | Format-List Id, Item, StatusFinal, Detalhes | Out-String -Width 200 | Write-Host
+            Write-Error "$($ruins.Count) item(ns) continuam fora do checklist depois do modo Aplicar."
+            exit 1
+          }
+          # Sem acentos: o PowerShell 5.1 lê o script temporário do Actions sem BOM.
+          Write-Host 'Todos os itens ficaram OK ou em REVISAR depois do modo Aplicar.'
+
+      - name: Guardar relatórios
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorios
+          path: relatorios/

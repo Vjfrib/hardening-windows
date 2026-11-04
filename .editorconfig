@@ -1,0 +1,7 @@
+root = true
+
+# O Windows PowerShell 5.1 precisa do BOM para ler acentos corretamente.
+[*.{ps1,psd1}]
+charset = utf-8-bom
+indent_style = space
+indent_size = 4
