@@ -63,7 +63,8 @@ jobs:
             Write-Error "$($ruins.Count) item(ns) continuam fora do checklist depois do modo Aplicar."
             exit 1
           }
-          Write-Host 'Todos os itens estão OK ou em REVISAR depois do modo Aplicar.'
+          # Sem acentos: o PowerShell 5.1 lê o script temporário do Actions sem BOM.
+          Write-Host 'Todos os itens ficaram OK ou em REVISAR depois do modo Aplicar.'
 
       - name: Guardar relatórios
         if: always()
