@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Hardening Windows: relatórios gerados pelo script e configuração de teste do CI
+relatorios/
+ci.config.psd1
