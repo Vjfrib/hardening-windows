@@ -1,0 +1,108 @@
+{
+  "Document": "Modelo: todas as alteracoes bloqueadas por padrao",
+  "EnableMutations": false,
+  "ConfirmedLab": false,
+  "SnapshotId": "",
+  "Approver": "",
+  "Reason": "",
+  "RecoveryAccessConfirmed": false,
+  "Controls": {
+    "01": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "02": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "03": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "04": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "05": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "06": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "07": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "08": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "09": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "10": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "11": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "12": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "13": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "14": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    },
+    "15": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false,
+      "ApprovedFeatures": []
+    },
+    "16": {
+      "Enabled": false,
+      "Ticket": "",
+      "Approver": "",
+      "RollbackEnabled": false
+    }
+  }
+}
