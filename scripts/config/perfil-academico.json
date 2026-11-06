@@ -1,0 +1,26 @@
+{
+  "ProfileName": "UPE-ATIPE-Academico-NaoHomologado",
+  "Password": {
+    "MinLength": 12,
+    "ComplexityEnabled": true,
+    "HistoryCount": 5,
+    "MaxAgeDays": 90,
+    "LockoutThreshold": 5,
+    "LockoutDurationMinutes": 15,
+    "ResetCounterMinutes": 15
+  },
+  "Accounts": {
+    "AdministratorNewName": ""
+  },
+  "OptionalFeatures": {
+    "Candidates": [
+      "SMB1Protocol",
+      "TelnetClient",
+      "TFTP"
+    ],
+    "ApprovedToDisable": []
+  },
+  "Services": {
+    "ApprovedToDisable": []
+  }
+}

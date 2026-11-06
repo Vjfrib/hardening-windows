@@ -218,3 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Hardening Windows lab artifacts
+output/*
+!output/.gitkeep
+scripts/config/aprovacoes.json
+*.local.json
