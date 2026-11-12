@@ -2,6 +2,7 @@ name: CI
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -34,7 +35,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Instalar Pester 5
+      - name: Instalar Pester
         shell: powershell
         run: |
           [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -45,6 +46,7 @@ jobs:
         shell: powershell
         run: .\tests\Test-Contracts.ps1
       - name: Ciclo completo na VM descartável do GitHub (altera só este runner)
+        if: success() || failure()
         shell: powershell
         run: .\tests\Invoke-CicloLaboratorio.ps1 -SaidaDir "$env:RUNNER_TEMP\evidencias" -ConfirmoVmDescartavel -PrepararNaoConformidades
       - name: Publicar relatórios como artefato

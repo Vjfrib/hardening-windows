@@ -102,7 +102,7 @@ function Restore-HWControl07 {
     if ($account.SID.Value -ne [string]$Saved.SID) { throw 'SID da conta -500 difere do backup.' }
     if ($account.Name -eq $Saved.Name) { return (New-HWChange -Changed $false -Actions 'Nome já é o original') }
     if ($PSCmdlet.ShouldProcess($account.SID.Value, "Restaurar o nome '$($Saved.Name)'")) {
-        Rename-LocalUser -SID $account.SID -NewName ([string]$Saved.Name) -ErrorAction Stop
+        Rename-LocalUser -SID $account.SID.Value -NewName ([string]$Saved.Name) -ErrorAction Stop
         return (New-HWChange -Changed $true -Actions "Renomeada de volta para '$($Saved.Name)'")
     }
     return (New-HWChange -Changed $false -Actions 'Simulado ou não confirmado')
