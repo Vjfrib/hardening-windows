@@ -1,0 +1,2 @@
+Nome do Computador,Destino da Política,Subcategoria,GUID da Subcategoria,Configuração de Inclusão,Configuração de Exclusão,Valor da Configuração
+WIN-LAB,Sistema,Fazer logon,{0CCE9215-69AE-11D9-BED3-505054503030},Êxito e Falha,,3

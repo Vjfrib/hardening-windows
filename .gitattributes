@@ -1,0 +1,12 @@
+# Scripts PowerShell com CRLF no checkout (padrão do Windows) e UTF-8 com BOM no conteúdo.
+*.ps1  text eol=crlf
+*.psm1 text eol=crlf
+*.psd1 text eol=crlf
+*.json text eol=lf
+*.md   text eol=lf
+*.py   text eol=lf
+*.yml  text eol=lf
+# Fixtures reproduzem exatamente o que o Windows exporta (UTF-16, CRLF).
+tests/fixtures/* -text
+*.pdf  binary
+*.png  binary

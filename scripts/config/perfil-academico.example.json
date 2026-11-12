@@ -1,0 +1,50 @@
+{
+  "Perfil": "academico-upe-poli",
+  "Descricao": "Perfil acadêmico para laboratório em VM, derivado do checklist de Rodrigo Campos e Gabriel Cortez. Não é homologação institucional da ATI-PE.",
+  "Password": {
+    "MinimumPasswordLength": 12,
+    "PasswordComplexity": 1,
+    "PasswordHistorySize": 5,
+    "MaximumPasswordAge": 90,
+    "LockoutBadCount": 5,
+    "LockoutDuration": 15,
+    "ResetLockoutCount": 15
+  },
+  "Accounts": {
+    "AdministratorNewName": "",
+    "ApprovedAdministrators": []
+  },
+  "Uac": {
+    "EnableLUA": 1,
+    "ConsentPromptBehaviorAdmin": 2,
+    "PromptOnSecureDesktop": 1
+  },
+  "Firewall": {
+    "AllowedListeningPorts": []
+  },
+  "Logs": {
+    "SecurityMinimumSizeKB": 196608,
+    "SystemMinimumSizeKB": 32768,
+    "ClearEventLookbackDays": 30
+  },
+  "Features": {
+    "Candidates": [
+      "SMB1Protocol",
+      "TelnetClient",
+      "TFTP",
+      "MicrosoftWindowsPowerShellV2Root"
+    ],
+    "ApprovedToDisable": []
+  },
+  "Services": {
+    "ReviewIfRunning": [
+      "RemoteRegistry",
+      "TlntSvr",
+      "SNMP",
+      "FTPSVC",
+      "SSDPSRV",
+      "upnphost",
+      "WMSvc"
+    ]
+  }
+}

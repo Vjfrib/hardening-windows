@@ -218,3 +218,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Hardening Windows
+# A regra "lib/" acima (modelo Python) ignoraria as bibliotecas PowerShell.
+!scripts/lib/
+# Saídas de execução (relatórios, backups, logs) ficam só na máquina que rodou.
+saida/
+# Aprovação e perfil reais são específicos de cada VM; versionar só os .example.json.
+scripts/config/aprovacoes.json
+scripts/config/perfil-academico.json
