@@ -1,0 +1,11 @@
+{
+  "Responsavel": "",
+  "Maquina": "NOME-DA-VM",
+  "ValidaAte": "2026-12-31",
+  "AmbienteDeLaboratorio": false,
+  "SnapshotConfirmado": false,
+  "ContaDeRecuperacaoConfirmada": false,
+  "PermitirMaquinaFisica": false,
+  "ControlesAprovados": [],
+  "Observacoes": "Copie para aprovacoes.json, preencha Responsavel e Maquina ($env:COMPUTERNAME), marque as confirmações como true somente depois de tirar o snapshot e testar a conta de recuperação, e liste os IDs aprovados (ex.: \"01\", \"02\"). Os IDs 10, 12, 13 e 16 são somente auditoria e são ignorados aqui."
+}

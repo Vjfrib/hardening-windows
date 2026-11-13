@@ -1,0 +1,7 @@
+Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclusion Setting,Setting Value
+WIN-LAB,System,Audit Logon,{0cce9215-69ae-11d9-bed3-505054503030},Success,,1
+WIN-LAB,System,Audit Account Lockout,{0CCE9217-69AE-11D9-BED3-505054503030},Success,,1
+WIN-LAB,System,Audit User Account Management,{0CCE9235-69AE-11D9-BED3-505054503030},Success,,1
+WIN-LAB,System,Audit Security Group Management,{0CCE9237-69AE-11D9-BED3-505054503030},Success and Failure,,3
+WIN-LAB,System,Audit Credential Validation,{0CCE923F-69AE-11D9-BED3-505054503030},No Auditing,,0
+,System,Option:CrashOnAuditFail,,Disabled,,0

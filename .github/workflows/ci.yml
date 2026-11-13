@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  estatico:
+    name: Estático e contratos (Linux, PowerShell 7)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar PSScriptAnalyzer e Pester
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSScriptAnalyzer -RequiredVersion 1.24.0 -Scope CurrentUser
+          Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser
+      - name: Estrutura, BOM, slides e configurações (Python)
+        run: python3 tests/test_static.py -v
+      - name: Sintaxe e PSScriptAnalyzer (compatibilidade com o Windows PowerShell 5.1)
+        shell: pwsh
+        run: ./tests/Test-Static.ps1
+      - name: Contratos com dublês (Pester)
+        shell: pwsh
+        run: ./tests/Test-Contracts.ps1
+
+  windows:
+    name: Windows PowerShell 5.1 · auditar, aplicar, verificar e restaurar
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar Pester
+        shell: powershell
+        run: |
+          [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+          Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser | Out-Null
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -SkipPublisherCheck -Force
+      - name: Contratos com dublês no Windows PowerShell 5.1
+        shell: powershell
+        run: .\tests\Test-Contracts.ps1
+      - name: Ciclo completo na VM descartável do GitHub (altera só este runner)
+        if: success() || failure()
+        shell: powershell
+        run: .\tests\Invoke-CicloLaboratorio.ps1 -SaidaDir "$env:RUNNER_TEMP\evidencias" -ConfirmoVmDescartavel -PrepararNaoConformidades
+      - name: Publicar relatórios como artefato
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidencias-windows
+          path: ${{ runner.temp }}/evidencias
+          if-no-files-found: warn
